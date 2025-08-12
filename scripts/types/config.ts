@@ -130,6 +130,7 @@ export interface DeploymentConfig {
   }
   maxPerpParams: number
   perpsLiquidationBonusRatio: Decimal
+  swapFee: Decimal
 }
 
 export interface AssetConfig {
