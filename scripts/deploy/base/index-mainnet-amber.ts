@@ -23,18 +23,24 @@ export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
   const deployer = await setupDeployer(config, label)
 
   try {
+
+    // Set our rewards collector as the protocol admin
+    deployer.storage.addresses.rewardsCollector = config.protocolAdminAddr
+
     await deployer.assertDeployerBalance()
+
 
     // Upload contracts
     await deployer.upload('redBank', wasmFile('mars_red_bank'))
     await deployer.upload('addressProvider', wasmFile('mars_address_provider'))
     await deployer.upload('incentives', wasmFile('mars_incentives'))
     await deployer.upload('oracle', wasmFile(`mars_oracle_${config.oracle.name}`))
-    await deployer.upload(
-      'rewardsCollector',
-      wasmFile(`mars_rewards_collector_${config.rewardsCollector.name}`),
-    )
+    // await deployer.upload(
+    //   'rewardsCollector',
+    //   wasmFile(`mars_rewards_collector_${config.rewardsCollector.name}`),
+    // )
     await deployer.upload('swapper', wasmFile(`mars_swapper_${config.swapper.name}`))
+    await deployer.upload('dualitySwapper', wasmFile(`mars_swapper_${config.dualitySwapper?.name}`))
     await deployer.upload('params', wasmFile(`mars_params`))
     await deployer.upload('accountNft', wasmFile('mars_account_nft'))
     await deployer.upload('mockVault', wasmFile('mars_mock_vault'))
@@ -48,8 +54,9 @@ export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
     await deployer.instantiateRedBank()
     await deployer.instantiateIncentives()
     await deployer.instantiateOracle(config.oracle.customInitParams)
-    await deployer.instantiateRewards()
+    // await deployer.instantiateRewards()
     await deployer.instantiateSwapper()
+    await deployer.instantiateDualitySwapper()
     await deployer.instantiateParams()
     await deployer.instantiateMockVault()
     await deployer.instantiateZapper()

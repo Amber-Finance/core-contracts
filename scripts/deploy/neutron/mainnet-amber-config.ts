@@ -4,7 +4,7 @@ const nobleUsdcDenom = 'ibc/B559A80D62249C8AA07A380E2A2BEA6E5CA9A6F079C912C3A9E9
 const atomDenom = 'ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9'
 const marsDenom = 'factory/neutron1ndu2wvkrxtane8se2tr48gv7nsm46y5gcqjhux/MARS'
 
-const protocolAdminAddr = 'neutron1pup4hxx879r2wreylmmtxlqz8va3kk2wcgd7w2'
+const protocolAdminAddr = 'neutron1ld67026gdnq4x2uyddhcdrtesxh0sypummyv9hsslm8es8yej8fqct70qj'
 
 const chainId = 'neutron-1'
 const rpcEndpoint = 'https://rpc-lb.neutron.org'
@@ -15,9 +15,9 @@ const astroportRouter = 'neutron1rwj6mfxzzrwskur73v326xwuff52vygqk73lr7azkehnfzz
 const astroportIncentives = 'neutron173fd8wpfzyqnfnpwq2zhtgdstujrjz2wkprkjfr6gqg4gknctjyq6m3tch'
 
 // note the following three addresses are all 'mars' bech32 prefix
-const safetyFundAddr = 'neutron1pxjszcmmdxwtw9kv533u3hcudl6qahsa42chcs24gervf4ge40usaw3pcr'
-const feeCollectorAddr = 'neutron1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqhufaa6'
-const revShareAddr = 'neutron1d0h5pk9ffmewrs8aksdp4whxjrfr44xzfc03uanmhuj6fdjs8yqsg6rcpx'
+const safetyFundAddr = 'neutron1ld67026gdnq4x2uyddhcdrtesxh0sypummyv9hsslm8es8yej8fqct70qj'
+const feeCollectorAddr = 'neutron1ld67026gdnq4x2uyddhcdrtesxh0sypummyv9hsslm8es8yej8fqct70qj'
+const revShareAddr = 'neutron1ld67026gdnq4x2uyddhcdrtesxh0sypummyv9hsslm8es8yej8fqct70qj'
 
 export const neutronMainnetConfig: DeploymentConfig = {
   mainnet: true,
@@ -45,12 +45,13 @@ export const neutronMainnetConfig: DeploymentConfig = {
   keeperFeeConfig: {
     min_fee: { amount: '200000', denom: nobleUsdcDenom },
   },
+  maxTriggerOrders: 30,
   rewardsCollector: {
     name: 'neutron',
     timeoutSeconds: 600,
     channelId: '',
-    safetyFundFeeShare: '0.45',
-    revenueShare: '0.1',
+    safetyFundFeeShare: '1',
+    revenueShare: '0',
     revenueShareConfig: {
       target_denom: nobleUsdcDenom,
       transfer_type: 'bank',
