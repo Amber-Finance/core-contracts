@@ -6,13 +6,12 @@ import {
   AssetParamsBaseForString,
   PerpParams,
 } from '../../types/generated/mars-params/MarsParams.types'
-import { MarketV2Response } from '../../types/generated/mars-red-bank/MarsRedBank.types'
+
 import { WasmPriceSourceForString } from '../../types/generated/mars-oracle-wasm/MarsOracleWasm.types'
 import { wasmFile } from '../../utils/environment'
 
 const marsOracleAddr = 'neutron1dwp6m7pdrz6rnhdyrx5ha0acsduydqcpzkylvfgspsz60pj2agxqaqrr7g'
 const marsParamsAddr = 'neutron1x4rgd7ry23v2n49y7xdzje0743c5tgrnqrqsvwyya2h6m48tz4jqqex06x'
-const marsRedBankAddr = 'neutron1n97wnm7q6d2hrcna3rqlnyqw2we6k0l8uqvmyqq6gsml92epdu7quugyph'
 
 export interface TaskRunnerProps {
   config: DeploymentConfig
@@ -80,8 +79,6 @@ export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
       await deployer.queryOraclePriceSources(marsOracleAddr)
     const assetParams: Map<string, AssetParamsBaseForString> =
       await deployer.queryAssetParams(marsParamsAddr)
-    const redBankMarkets: Map<string, MarketV2Response> =
-      await deployer.queryRedBankMarkets(marsRedBankAddr)
     const perpParams: Map<string, PerpParams> = await deployer.queryPerpParams(marsParamsAddr)
 
     // Create a Set of denoms that have pcl_liquidity_token, lsd, or astroport_twap price sources
@@ -120,12 +117,6 @@ export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
     for (const [denom, asset] of assetParams.entries()) {
       if (!excludedDenoms.has(denom)) {
         await deployer.updateAssetParamsV2(asset)
-      }
-    }
-
-    for (const [denom, market] of redBankMarkets.entries()) {
-      if (!excludedDenoms.has(denom)) {
-        await deployer.initializeMarketV2(market)
       }
     }
 

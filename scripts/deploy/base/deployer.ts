@@ -1364,33 +1364,4 @@ export class Deployer {
 
     this.storage.actions.perpsSet.push(perpParams.denom)
   }
-
-  async initializeMarketV2(assetParams: MarketV2Response) {
-    if (this.storage.actions.redBankMarketsSet.includes(assetParams.denom)) {
-      printBlue(`${assetParams.denom} already initialized in red-bank contract`)
-      return
-    }
-    printBlue(`Initializing ${assetParams.denom}...`)
-
-    const msg: RedBankExecuteMsg = {
-      init_asset: {
-        denom: assetParams.denom,
-        params: {
-          reserve_factor: assetParams.reserve_factor,
-          interest_rate_model: {
-            optimal_utilization_rate: assetParams.interest_rate_model.optimal_utilization_rate,
-            base: assetParams.interest_rate_model.base,
-            slope_1: assetParams.interest_rate_model.slope_1,
-            slope_2: assetParams.interest_rate_model.slope_2,
-          },
-        },
-      },
-    }
-
-    await this.cwClient.execute(this.deployerAddr, this.storage.addresses['redBank']!, msg, 'auto')
-
-    printYellow(`${assetParams.denom} initialized`)
-
-    this.storage.actions.redBankMarketsSet.push(assetParams.denom)
-  }
 }
