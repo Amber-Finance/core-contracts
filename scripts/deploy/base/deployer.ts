@@ -128,7 +128,7 @@ export class Deployer {
       this.deployerAddr,
       codeId,
       msg,
-      `mars-mirror-${kebabCase(name)}`,
+      `amber-${kebabCase(name)}`,
       'auto',
       { admin: this.config.multisigAddr ? this.config.multisigAddr : this.deployerAddr },
     )
