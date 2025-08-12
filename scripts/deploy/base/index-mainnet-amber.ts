@@ -1,17 +1,7 @@
 import { setupDeployer } from './setup-deployer'
-import { printRed, printYellow } from '../../utils/chalk'
+import { printGreen, printRed, printYellow } from '../../utils/chalk'
 import { DeploymentConfig } from '../../types/config'
-import { PriceSourceResponseForString } from '../../types/generated/mars-oracle-osmosis/MarsOracleOsmosis.types'
-import {
-  AssetParamsBaseForString,
-  PerpParams,
-} from '../../types/generated/mars-params/MarsParams.types'
-
-import { WasmPriceSourceForString } from '../../types/generated/mars-oracle-wasm/MarsOracleWasm.types'
 import { wasmFile } from '../../utils/environment'
-
-const marsOracleAddr = 'neutron1dwp6m7pdrz6rnhdyrx5ha0acsduydqcpzkylvfgspsz60pj2agxqaqrr7g'
-const marsParamsAddr = 'neutron1x4rgd7ry23v2n49y7xdzje0743c5tgrnqrqsvwyya2h6m48tz4jqqex06x'
 
 export interface TaskRunnerProps {
   config: DeploymentConfig
@@ -75,56 +65,24 @@ export const taskRunner = async ({ config, label }: TaskRunnerProps) => {
       await deployer.setAstroportIncentivesAddress(config.astroportConfig!.incentives!)
     }
 
-    const oraclePriceSources: Map<string, PriceSourceResponseForString> =
-      await deployer.queryOraclePriceSources(marsOracleAddr)
-    const assetParams: Map<string, AssetParamsBaseForString> =
-      await deployer.queryAssetParams(marsParamsAddr)
-    const perpParams: Map<string, PerpParams> = await deployer.queryPerpParams(marsParamsAddr)
+    if (config.multisigAddr) {
+          await deployer.updateIncentivesContractOwner()
+          await deployer.updateRedBankContractOwner()
+          await deployer.updateOracleContractOwner()
+          await deployer.updateRewardsContractOwner()
+          await deployer.updateSwapperContractOwner()
+          await deployer.updateParamsContractOwner()
+          await deployer.updateAddressProviderContractOwner()
+          await deployer.updateCreditManagerOwner()
+          await deployer.updateHealthOwner()
+          printGreen('It is confirmed that all contracts have transferred ownership to the Multisig')
+        } else {
+          printGreen('Owner remains the deployer address.')
+        }
 
-    // Create a Set of denoms that have pcl_liquidity_token, lsd, or astroport_twap price sources
-    const excludedDenoms = new Set<string>()
-    for (const [denom, priceSource] of oraclePriceSources.entries()) {
-      const source = priceSource.price_source
-      if (
-        source &&
-        typeof source === 'object' &&
-        ('pcl_liquidity_token' in source || 'lsd' in source || 'astroport_twap' in source)
-      ) {
-        excludedDenoms.add(denom)
-        console.log(`Found excluded price source for denom: ${denom}`)
-      }
-    }
-    excludedDenoms.add('uusd')
-
-    // Filter oraclePriceSources
-    const filteredOraclePriceSources = new Map<string, WasmPriceSourceForString>()
-    for (const [denom, priceSource] of oraclePriceSources.entries()) {
-      if (!excludedDenoms.has(denom)) {
-        filteredOraclePriceSources.set(
-          denom,
-          priceSource.price_source as unknown as WasmPriceSourceForString,
-        )
-      }
-    }
+    
 
     await deployer.setOracle({ denom: 'usd', price_source: { fixed: { price: '1000000' } } })
-
-    // setup
-    for (const [denom, priceSource] of filteredOraclePriceSources.entries()) {
-      await deployer.setOracle({ denom, price_source: priceSource })
-    }
-
-    for (const [denom, asset] of assetParams.entries()) {
-      if (!excludedDenoms.has(denom)) {
-        await deployer.updateAssetParamsV2(asset)
-      }
-    }
-
-    for (const [denom, perp] of perpParams.entries()) {
-      if (!excludedDenoms.has(denom)) {
-        await deployer.initializePerpDenomV2(perp)
-      }
-    }
 
     printYellow('COMPLETE')
   } catch (e) {

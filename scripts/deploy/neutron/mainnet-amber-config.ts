@@ -74,6 +74,10 @@ export const neutronMainnetConfig: DeploymentConfig = {
     name: 'astroport',
     routes: [],
   },
+  dualitySwapper: {
+    name: 'duality',
+    routes: [],
+  },
   maxValueForBurn: '10000',
   maxUnlockingPositions: '1',
   maxSlippage: '0.2',
@@ -100,4 +104,5 @@ export const neutronMainnetConfig: DeploymentConfig = {
   },
   maxPerpParams: 30,
   perpsLiquidationBonusRatio: '0.6',
+  swapFee: '0.0005',
 }

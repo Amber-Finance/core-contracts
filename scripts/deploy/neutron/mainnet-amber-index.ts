@@ -3,7 +3,10 @@ import { neutronMainnetConfig } from './mainnet-amber-config.js'
 
 void (async function () {
   await taskRunner({
-    config: neutronMainnetConfig,
-    label: 'deployer-owner',
+    config: {
+      ...neutronMainnetConfig,
+    multisigAddr: 'neutron1ld67026gdnq4x2uyddhcdrtesxh0sypummyv9hsslm8es8yej8fqct70qj',
+    },
+    label: 'multisig-owner',
   })
 })()
