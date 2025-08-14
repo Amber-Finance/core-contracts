@@ -66,6 +66,7 @@ export interface DeploymentConfig {
   safetyFundAddr: string
   protocolAdminAddr: string
   feeCollectorAddr: string
+  revShareAddr: string
   chain: {
     prefix: string
     id: string
@@ -129,6 +130,7 @@ export interface DeploymentConfig {
   }
   maxPerpParams: number
   perpsLiquidationBonusRatio: Decimal
+  swapFee: Decimal
 }
 
 export interface AssetConfig {
