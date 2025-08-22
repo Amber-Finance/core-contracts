@@ -165,16 +165,17 @@ cargo make test
 | Contract                  | Address                                                                    | Tag
 | ------------------------- | -------------------------------------------------------------------------- | --------------
 | mars-address-provider     | [`neutron1n6m2ykuq9w83a9kq2p6dr4202dcxjpz7a2hwutw5rk4n9kwqmdxsad65pd`][11] | [`v2.3.0`][35] |
-| mars-account-nft          | [`neutron1nl8d943u3k8lext62c2vplsmpr257zmfdd2mwvegc77xfjy5w0qq5zqc6e`][26] | [`v2.2.0`][31] |
+| mars-account-nft          | [`neutron1nl8d943u3k8lext62c2vplsmpr257zmfdd2mwvegc77xfjy5w0qq5zqc6e`][26] | [`v2.3.0`][31] |
 | mars-credit-manager       | [`neutron1et4xza4pge3asumk8yxdx6qm85k9eplk0kathtkheln6znxsqheqfytsza`][27] | [`v2.3.0`][35] |
-| mars-health               | [`neutron17dy4j4rt9pw497mfpkd5gghw8q63kjyrd26h9yc2ugfwqke8x33stfmwrz`][28] | [`v2.2.0`][31] |
+| mars-health               | [`neutron17dy4j4rt9pw497mfpkd5gghw8q63kjyrd26h9yc2ugfwqke8x33stfmwrz`][28] | [`v2.3.0`][31] |
 | mars-incentives           | [`neutron1u9eg2njpcvdprtes8s78hwddayrxzgw9akkjpxx0umr0awvapxrshmjlsd`][12] | [`v2.2.0`][31] |
 | mars-oracle               | [`neutron18l6cfm34qng2h9cvl3mxfw9zck9j5awv9jen4sa4f67x6t98y47s9vmuye`][13] | [`v2.2.3`][34] |
 | mars-params               | [`neutron1y2hjwse8sq77gvsmcy8gm6kjye6a3g9ksyxdjg99ceg3rmlpq5usyv5n07`][29] | [`v2.3.0`][35] |
-| mars-perps                | [`neutron1g3catxyv0fk8zzsra2mjc0v4s69a7xygdjt85t54l7ym3gv0un4q2xhaf6`][32] | [`v2.2.3`][34] |
+| mars-perps                | [`neutron1g3catxyv0fk8zzsra2mjc0v4s69a7xygdjt85t54l7ym3gv0un4q2xhaf6`][32] | [`v2.3.0`][34] |
 | mars-red-bank             | [`neutron1k8xyccg9nvfavagqjsqngh66w4z286utqweswl4txtnewaymkc9ss5f5e8`][14] | [`v2.3.0`][35] |
 | mars-rewards-collector    | [`neutron1h4l6rvylzcuxwdw3gzkkdzfjdxf4mv2ypfdgvnvag0dtz6x07gps6fl2vm`][15] | [`v2.2.0`][31] |
 | mars-swapper              | [`neutron1ratz633muu96er3wn7kx5hzty8zdg5d8maqduykesun30ddcseeqceyhfl`][16] | [`v2.3.0`][35] |
+| mars-duality-swapper      | [`neutron1sunrkm9482mn4dvtekk53ns6vvntkrhzh2n36qngyfphjn32t63qy7hp6s`][63] | [`v2.3.0`][62] |
 | mars-zapper               | [`neutron1595ht54wjekzku0k4z2a485072ntr9cwdr5d3y5qc4qv59y2pmsqmsg6aw`][30] | [`v2.2.3`][34] |
 
 ## License
